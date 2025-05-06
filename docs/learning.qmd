@@ -71,9 +71,9 @@ add_numbers(1, 2)
 #'
 import_cgm <- function(file_path) {
   cgm <- file_path %>%
-    read_csv(
+    readr::read_csv(
       show_col_types = FALSE,
-      name_repair = to_snake_case,
+      name_repair = snakecase::to_snake_case,
       n_max = 100
     )
   return(cgm)
@@ -83,4 +83,48 @@ here("data-raw/dime/cgm/101.csv") %>%
   import_cgm()
 here("data-raw/dime/cgm/102.csv") %>%
   import_cgm()
+```
+
+## Exercise: import 101's sleep data
+
+```{r}
+import_sleep <- function(file_path) {
+  sleep <- file_path %>%
+    read_csv(
+      show_col_types = FALSE,
+      name_repair = to_snake_case,
+      n_max = 100
+    )
+  return(sleep)
+}
+
+here("data-raw/dime/sleep/101.csv") %>%
+  import_sleep()
+```
+
+## Import DIME data function
+```{r}
+#' Import data from the DIME study dataset
+#'
+#' @param file_path Path to the CSV file
+#'
+#' @returns A data frame
+#'
+import_dime <- function(file_path) {
+  data <- file_path %>%
+    readr::read_csv(
+      show_col_types = FALSE,
+      name_repair = snakecase::to_snake_case,
+      n_max = 100
+    )
+  return(data)
+}
+```
+
+```{r}
+here("data-raw/dime/cgm/101.csv") %>%
+  import_dime()
+
+here("data-raw/dime/sleep/101.csv") %>%
+  import_dime()
 ```
