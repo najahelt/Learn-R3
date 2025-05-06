@@ -2,6 +2,8 @@
 title: "Draft Quarto document"
 author: "Naja"
 format: html
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Header 1
@@ -26,7 +28,9 @@ cgm_101 <- here("data-raw/dime/cgm/101.csv") %>%
     n_max = 100
   )
 ```
+
 ## Importing Sleep data on cgm_101 patient
+
 ```{r}
 sleep_101 <- here("data-raw/dime/sleep/101.csv") |>
   read_csv(
@@ -53,4 +57,30 @@ add_numbers <- function(num1, num2) {
 }
 
 add_numbers(1, 2)
+```
+
+
+## Import 101's CMG data with a function
+
+```{r}
+#' Import on participants cgm
+#'
+#' @param file_path path to file you want to open
+#'
+#' @returns Returns a data frame
+#'
+import_cgm <- function(file_path) {
+  cgm <- file_path %>%
+    read_csv(
+      show_col_types = FALSE,
+      name_repair = to_snake_case,
+      n_max = 100
+    )
+  return(cgm)
+}
+
+here("data-raw/dime/cgm/101.csv") %>%
+  import_cgm()
+here("data-raw/dime/cgm/102.csv") %>%
+  import_cgm()
 ```
