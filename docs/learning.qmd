@@ -1,0 +1,28 @@
+---
+title: "Draft Quarto document"
+author: "Naja"
+format: html
+---
+
+## Header 1
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(here)
+library(snakecase)
+```
+
+```{r}
+# Code chunk
+```
+
+## Importing CGM data. 
+```{r}
+cgm_101 <- here("data-raw/dime/cgm/101.csv") %>%
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = to_snake_case
+  )
+```
+
