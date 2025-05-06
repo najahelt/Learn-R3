@@ -26,3 +26,13 @@ cgm_101 <- here("data-raw/dime/cgm/101.csv") %>%
     n_max = 100
   )
 ```
+## Importing Sleep data on cgm_101 patient
+```{r}
+sleep_101 <- here("data-raw/dime/sleep/101.csv") |>
+  read_csv(
+    show_col_types = FALSE,
+    name_repair = to_snake_case,
+    n_max = 100
+  )
+sleep_101
+```
