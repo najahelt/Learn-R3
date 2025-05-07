@@ -13,16 +13,20 @@ editor_options:
 library(tidyverse)
 library(here)
 library(snakecase)
+library(lubridate)
 library(fs)
 library(stringr)
 source(here("R/functions.R"))
-cgm_data <- here("data-raw/dime/cgm") %>%
-  import_csv_files() %>%
-  get_participant_id()
+cgm_data <- here("data-raw/dime/cgm") |> 
+  import_csv_files() |> 
+  get_participant_id() |>
+  prepare_dates(device_timestamp)
 # Sleep data
 sleep_data <- here("data-raw/dime/sleep") |>
   import_csv_files() |>
-  get_participant_id()
+  get_participant_id() |>
+  rename(datetime = date) |>
+  prepare_dates(datetime)
 ```
 
 ```{r}
@@ -142,8 +146,13 @@ here("data-raw/dime/sleep/") |>
   import_csv_files()
 ```
 
-## Using regex for ID extraction
+## Using regex for ID extraction den puttede vi så i functions
+
+## Working with dates
 
 
+```{r}
+```
 
-
+```{r}
+```

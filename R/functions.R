@@ -49,5 +49,23 @@ get_participant_id <- function(data) {
       .before = file_path_id
     ) %>%
     dplyr::select(-file_path_id)
-  base::return(data)
+  base::return(data_with_id)
+}
+
+#' To nye kolonner, der skiller dato og tid fra hinanden, som ellers var samlet i en kolonne.
+#'
+#' @param data et dataframe(som enten er i vores tilfælde for cgm eller sleep data)
+#' @param column den kolonne, som vi skulle splitte op fordi der både var tid og dato sammen i en kolonne
+#'
+#' @returns 2 kolonner fremfor tidligere en kolonne
+#'
+prepare_dates <- function(data, column) {
+  prepared_dates <- data |>
+    mutate(
+      date = as_date({{ column }}),
+      hour = hour({{ column }}),
+      .before = {{ column }}
+    )
+
+  return(prepared_dates)
 }
