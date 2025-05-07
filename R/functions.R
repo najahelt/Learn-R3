@@ -69,3 +69,16 @@ prepare_dates <- function(data, column) {
 
   return(prepared_dates)
 }
+
+#' Clean an prepare the cgm data for joining
+#'
+#' @param data the cgm dataset
+#'
+#' @returns a cleaner data frame
+clean_cgm <- function(data) {
+  cleaned <- data |>
+    get_participant_id() |>
+    prepare_dates(device_timestamp) |>
+    dplyr::rename(glucose = historic_glucose_mmol_l)
+  return(cleaned)
+}
